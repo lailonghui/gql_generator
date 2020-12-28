@@ -1,0 +1,17 @@
+db:
+  host: "192.168.3.132"
+  port: 5433
+  username: "postgres"
+  password: "root"
+  dbname: "vehicle_1"
+  sslMode: "disable"
+  timezone: "Asia/Shanghai"
+generate:
+  tables:
+    - "enterprise"
+    - "system_user"
+    - "vehicle_location_last"
+  projectName: "VehicleSupervision" #项目名称 go.mod里面的Module
+  projectDir: "D:/project/VehicleSupervision2" #项目地址
+  moduleName: "admin4" #模块名称
+  moduleDir: "internal/modules/admin6" #模块相对地址
