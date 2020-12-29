@@ -9,7 +9,7 @@ import (
 // go:generate {{.Params.DataloaderCmd}}
 
 func (t {{.Params.ModelName}}) TableName() string {
-	return "{{.Params.ModelName}}"
+	return "{{.CurrentTable.TableName}}"
 }
 
 func (t *{{.Params.ModelName}}) NewLoader() *{{.Params.ModelName}}Loader {

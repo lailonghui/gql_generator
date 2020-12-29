@@ -67,10 +67,10 @@ func (r *mutationResolver) Delete{{.Params.ModelName}}ByPk(ctx context.Context, 
 }
 
 func (r *mutationResolver) Insert{{.Params.ModelName}}(ctx context.Context, objects []*model.{{.Params.ModelName}}InsertInput) (*model.{{.Params.ModelName}}MutationResponse, error) {
-	rs := []*model1.{{.Params.ModelName}}{}
+	rs := make([]*model1.{{.Params.ModelName}}, 0)
 	for _, object := range objects{
 		v := &model1.{{.Params.ModelName}}{}
-		util2.StructAssign(v, &object)
+		util2.StructAssign(v, object)
 		rs = append(rs, v)
 	}
 	tx := db.DB.Model(&model1.{{.Params.ModelName}}{}).Create(&rs)
@@ -87,7 +87,9 @@ func (r *mutationResolver) Insert{{.Params.ModelName}}(ctx context.Context, obje
 }
 
 func (r *mutationResolver) Insert{{.Params.ModelName}}One(ctx context.Context, object model.{{.Params.ModelName}}InsertInput) (*model1.{{.Params.ModelName}}, error) {
-	rs := &model1.{{.Params.ModelName}}{}
+	rs := &model1.{{.Params.ModelName}}{
+
+	}
 	util2.StructAssign(rs, &object)
 	tx := db.DB.Model(&model1.{{.Params.ModelName}}{}).Create(&rs)
 	if err := tx.Error; err != nil {
@@ -120,13 +122,13 @@ func (r *mutationResolver) Update{{.Params.ModelName}}ByPk(ctx context.Context, 
 	qt := util.NewQueryTranslator(tx, &model1.{{.Params.ModelName}}{})
 	tx = qt.Inc(inc).Set(set).DoUpdate()
 	if err := tx.Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
-		}
 		return nil, err
 	}
 	var rs model1.{{.Params.ModelName}}
 	tx = tx.First(&rs)
+	if err := tx.Error; err != nil {
+		return &rs, err
+	}
 	return &rs, nil
 }
 
@@ -140,13 +142,8 @@ func (r *queryResolver) {{.Params.ModelName}}(ctx context.Context, distinctOn []
 		Finish()
 	var rs []*model1.{{.Params.ModelName}}
 	tx = tx.Find(&rs)
-	if err := tx.Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
-		}
-		return nil, err
-	}
-	return rs, nil
+	err := tx.Error
+	return rs, err
 }
 
 func (r *queryResolver) {{.Params.ModelName}}Aggregate(ctx context.Context, distinctOn []model.{{.Params.ModelName}}SelectColumn, limit *int, offset *int, orderBy []*model.{{.Params.ModelName}}OrderBy, where *model.{{.Params.ModelName}}BoolExp) (*model.{{.Params.ModelName}}Aggregate, error) {
@@ -162,26 +159,15 @@ func (r *queryResolver) {{.Params.ModelName}}Aggregate(ctx context.Context, dist
 	if err != nil {
 		return nil, err
 	}
-	if err := tx.Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
-		}
-		return nil, err
-	}
-
-	return &rs, nil
+	err = tx.Error
+	return &rs, err
 }
 
 func (r *queryResolver) {{.Params.ModelName}}ByPk(ctx context.Context, {{.Params.PrimaryKeyName}} {{.Params.PrimaryKeyType}}) (*model1.{{.Params.ModelName}}, error) {
 	var rs model1.{{.Params.ModelName}}
 	tx := db.DB.Model(&model1.{{.Params.ModelName}}{}).First(&rs, {{.Params.PrimaryKeyName}})
-	if err := tx.Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
-		}
-		return nil, err
-	}
-	return &rs, nil
+	err := tx.Error
+	return &rs, err
 }
 {{if .Params.DeclareResolver}}
 // Mutation returns generated.MutationResolver implementation.

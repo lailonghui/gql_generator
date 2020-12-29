@@ -1,17 +1,113 @@
 db:
   host: "192.168.3.132"
-  port: 5433
+  port: 5432
   username: "postgres"
   password: "root"
-  dbname: "vehicle_1"
+  dbname: "vehicle"
   sslMode: "disable"
   timezone: "Asia/Shanghai"
 generate:
   tables:
-    - "enterprise"
-    - "system_user"
-    - "vehicle_location_last"
+#    vehicle
+#    - "vehicle_info"
+#    - "operating_vehicle_ext"
+#    - "muck_truck_ext"
+#    - "muck_truck_preview_number"
+#    - "muck_truck_worker_identity_card_orders"
+#    - "vehicle_supervision_photo"
+#    - "owner_info"
+#    - "jj_vehicle"
+#    - "vehicle_enterprise_change_review"
+#    - "vehicle_enterprise_change_log"
+#    - "vehicle_operation_history"
+#    - "vehicle_online_time"
+#    - "temp_identity_card_download_log"
+#    - "muck_truck_test_situation"
+#    - "vehicle_status_change_log"
+#    - "vehicle_state_latest"
+#    - "vehicle_increment_record"
+#    - "outage_registration"
+#    - "outage_filing_upload_file"
+#    - "vehicle_reserve_history_record"
+#    - "vehicle_security_check_record"
+#    - "catalog_new_vehicle_record"
+#    - "vehicle_exit_catalog_review"
+#    - "vehicle_exit_catalog_log"
+#    - "province_upload_vehicle"
+
+
+#driver
+#     - "driver_info"
+#     - "driver_identity"
+#     - "driving_license_registration_inspection"
+#     - "driver_fingerprint"
+#     - "driver_fingerprint_association"
+#     - "driver_identity_info_report"
+
+#  vehicle_driver_separation
+#    - "vehicle_driver_binding"
+#    - "driving_log_info"
+#    - "case_approval_review_operation"
+#    - "case_approval_review_call"
+#    - "dispute_violation_record"
+#    - "dispute_violation_record_log"
+
+
+#  dynamic_supervision
+#     - "dynamic_supervision"
+#     - "dynamic_supervision_detail"
+#     - "dynamic_spot_check_disposal"
+#     - "muck_truck_online"
+#     - "vehicle_offline_disposal"
+#     - "vehicle_alarm_supervision"
+#     - "region_management"
+#     - "region_issued"
+#     - "vehicle_alarm_times_record"
+
+#  vehicle_alarm
+#      - "vehicle_alarm_data"
+#      - "alarm_processing_record"
+#      - "district_alarm_content_push"
+#      - "alarm_supervision_picture_upload"
+#      - "video_platform_alarm_type"
+#      - "offline_alarm_registration"
+#      - "voice_alarm_record"
+#      - "enterprise_alarm_send_police"
+
+#  vehicle_violation
+#      - "vehicle_violation_details"
+#      - "vehicle_violation_scoring_record"
+#      - "vehicle_violation_scoring_items"
+#      - "vio_codewfdm"
+#      - "regional_violation_register"
+#      - "illegal_photo"
+#      - "app_enforcement"
+#      - "driver_peccancy_check"
+#      - "serious_traffic_violation"
+#      - "deduction_report"
+#      - "violation_registration"
+
+#  muck_truck_recommend_catalog
+#      - "new_muck_truck_recommend_catalog"
+#      - "vehicle_sale_record"
+#      - "muck_truck_sale_order"
+#      - "muck_truck_sale_order_detail"
+#      - "seller_rating_record"
+#      - "seller_filing"
+#      - "new_muck_truck_info"
+#      - "new_muck_truck_photo"
+#      - "muck_truck_purchase_intention"
+
+#  vehicle_snapshot_system
+      - "construction_info"
+      - "construction_upload_pic"
+      - "construction_camera"
+      - "vehicle_passing_record"
+      - "snapshot_system_passing_alarm"
+      - "offline_registration_record"
+
   projectName: "VehicleSupervision" #项目名称 go.mod里面的Module
-  projectDir: "D:/project/VehicleSupervision2" #项目地址
-  moduleName: "admin4" #模块名称
-  moduleDir: "internal/modules/admin6" #模块相对地址
+  projectDir: "D:/Go-work/src/lai.com/VehicleTest" #项目地址
+  moduleName: "vehicle_snapshot_system" #模块名称
+  moduleDir: "internal/modules/vehicle_snapshot_system" #模块相对地址
+

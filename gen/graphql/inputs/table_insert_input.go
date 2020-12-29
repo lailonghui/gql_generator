@@ -17,11 +17,27 @@ func buildTableInsertInput(ctx *context.GqlBuildContext) *ast.Definition {
 	// build fields
 	fieldList := make([]*ast.FieldDefinition, 0)
 	for _, columnInfo := range ctx.Columns {
+		if !columnInfo.Nullable {
+			continue
+		}
+	/*	if columnInfo.Primary {
+			continue
+		}
+		if i == 1 {
+			tableNameAndId := ctx.TableName + "_id"
+			if strings.Contains(tableNameAndId, columnInfo.Columnname) {
+				continue
+			}
+		}*/
+		t := util.NewType(scalars.CalculateNamedType(columnInfo))
+		//if !columnInfo.Nullable {
+		//	t = util.NewNotNullType(scalars.CalculateNamedType(columnInfo))
+		//}
 		fieldList = append(fieldList, &ast.FieldDefinition{
 			Name:         columnInfo.Columnname,
 			Arguments:    nil,
 			DefaultValue: nil,
-			Type:         util.NewType(scalars.CalculateNamedType(columnInfo)),
+			Type:         t,
 			Directives:   nil,
 			Position:     nil,
 		})

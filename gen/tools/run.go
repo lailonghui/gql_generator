@@ -2,6 +2,7 @@ package tools
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -11,7 +12,7 @@ import (
 
 // RunInDir ...
 func RunInDir(cmd, dir string) ([]byte, error) {
-
+	fmt.Println(cmd)
 	command := exec.Command("cmd.exe", "/c", "start "+cmd)
 	command.Dir = dir
 	output, err := command.CombinedOutput()

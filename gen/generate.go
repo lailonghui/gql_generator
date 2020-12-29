@@ -36,7 +36,7 @@ func Generate() {
 		log.Fatal(err)
 	}
 
-	// 生成用于生成model的gqlgen.yml
+	// 生成gqlgen.yml
 	err = generateGqlgenYmlFile()
 	if err != nil {
 		log.Fatal(err)
@@ -230,7 +230,8 @@ func generateModelFile(tableInfo table.TableInfo) error {
 	// 生成model ext文件
 	modelExtFilePath := filepath.Join(config.CONF_INSTANCE.ProjectDir, config.CONF_INSTANCE.ModuleDir, "model/"+tableInfo.TableName+"_ext.go")
 	context := template.TemplateContext{
-		Conf: config.CONF_INSTANCE,
+		Conf:         config.CONF_INSTANCE,
+		CurrentTable: tableInfo,
 		Params: map[string]interface{}{
 			"DataloaderCmd": generateDataLoaderFileCmd,
 			"ModelName":     tableModuleName,
